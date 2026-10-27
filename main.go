@@ -9,6 +9,16 @@ func sendData(ch chan<-string){
 	ch <- "ammar"
 }
 
+// String Looping
+func StringLooping(str []string)string {
+	var result string;
+		for _,val := range str{
+			result+=val;
+			fmt.Println(val);
+		}
+		return result;
+}
+
 func main(){
 	ch :=make(chan string)
 	go sendData(ch);
@@ -17,5 +27,7 @@ func main(){
 	// Simulate api request to get the data from channel after finish 
 	res := <- ch
 	fmt.Println(res)
+
+	StringLooping([]string{"Ammar","Ibrahim"})
 
 }
