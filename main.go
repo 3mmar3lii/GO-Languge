@@ -19,6 +19,13 @@ func StringLooping(str []string)string {
 		return result;
 }
 
+
+func DisplayMap(mp map[string][]int){
+	for  idx,val := range mp{
+		fmt.Println("I",idx);
+		fmt.Println("v",val);
+	}
+}
 func main(){
 	ch :=make(chan string)
 	go sendData(ch);
@@ -27,7 +34,12 @@ func main(){
 	// Simulate api request to get the data from channel after finish 
 	res := <- ch
 	fmt.Println(res)
+	arr:=[]string{"Ammar","Ibrahim"}
+	StringLooping(arr[:])
 
-	StringLooping([]string{"Ammar","Ibrahim"})
+	fmt.Println("-------------")
+	// Declare Map
+	mp := map[string][]int{"a":{1,2}};
 
+	DisplayMap(mp)
 }
