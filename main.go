@@ -3,6 +3,25 @@ package main
 import "fmt"
 //import "strconv"
 
+// Struct
+type Person struct{
+	name string
+	age uint16
+	salary float64
+	fn func (string); // Issuse here as each time will create new one in memory 
+}
+
+
+func HaveStruct(P Person) Person{
+	P.age=22;
+	return P
+}
+
+// Function the same bevior in the memory with the sturcut 
+func(P Person) EffiecntFunction(P1 Person) Person{
+	P1.name="ALi";
+	return P1;
+}
 
 // Function that take function 
 func Callable(fn func(int) int) int{
@@ -56,4 +75,14 @@ func main(){
 	// Callable function
 	result :=Callable(Double);
 	fmt.Println(result);
+
+	// Use Struct
+	S1 := Person{
+		name :"ammar",
+		age:20,
+		salary: 12.290,
+		fn:func(s string){
+		fmt.Println(s);
+	}}
+	fmt.Println("Struct ",S1)
 }
