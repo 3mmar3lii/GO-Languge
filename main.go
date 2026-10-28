@@ -1,88 +1,88 @@
 package main
 
-import "fmt"
-//import "strconv"
+import (
+    "fmt"
+    "strings"
+)
 
-// Struct
-type Person struct{
-	name string
-	age uint16
-	salary float64
-	fn func (string); // Issuse here as each time will create new one in memory 
+// Person represents a simple sample model.
+type Person struct {
+    name   string
+    age    uint16
+    salary float64
+    fn     func(string)
 }
 
-
-func HaveStruct(P Person) Person{
-	P.age=22;
-	return P
+func HaveStruct(p Person) Person {
+    p.age = 22
+    return p
 }
 
-// Function the same bevior in the memory with the sturcut 
-func(P Person) EffiecntFunction(P1 Person) Person{
-	P1.name="ALi";
-	return P1;
+// EfficientFunction demonstrates a value receiver method.
+func (p Person) EfficientFunction(p1 Person) Person {
+    p1.name = "Ali"
+    return p1
 }
 
-// Function that take function 
-func Callable(fn func(int) int) int{
-	return fn(100);
+// Callable accepts a function and executes it.
+func Callable(fn func(int) int) int {
+    return fn(100)
 }
 
-func Double(number int) int{
-	return (number*2);
+func Double(number int) int {
+    return number * 2
 }
 
-func sendData(ch chan<-string){
-
-	// Simulate api request that take time 
-	ch <- "ammar"
+func sendData(ch chan<- string) {
+    // Simulate an API request that takes time.
+    ch <- "ammar"
+    close(ch)
 }
 
-// String Looping
-func StringLooping(str []string)string {
-	var result string;
-		for _,val := range str{
-			result+=val;
-			fmt.Println(val);
-		}
-		return result;
+// StringLooping joins strings efficiently.
+func StringLooping(str []string) string {
+    var builder strings.Builder
+    for _, val := range str {
+        builder.WriteString(val)
+        fmt.Println(val)
+    }
+    return builder.String()
 }
 
-
-func DisplayMap(mp map[string][]int){
-	for  idx,val := range mp{
-		fmt.Println("I",idx);
-		fmt.Println("v",val);
-	}
+func DisplayMap(mp map[string][]int) {
+    for idx, val := range mp {
+        fmt.Println("I", idx)
+        fmt.Println("v", val)
+    }
 }
-func main(){
-	ch :=make(chan string)
-	go sendData(ch);
-// recive data from channel 
 
-	// Simulate api request to get the data from channel after finish 
-	res := <- ch
-	fmt.Println(res)
-	arr:=[]string{"Ammar","Ibrahim"}
-	StringLooping(arr[:])
+func main() {
+    ch := make(chan string, 1)
+    go sendData(ch)
 
-	fmt.Println("-------------")
-	// Declare Map
-	mp := map[string][]int{"a":{1,2}};
+    // Receive data from the channel after it completes.
+    res := <-ch
+    fmt.Println(res)
 
-	DisplayMap(mp)
+    arr := []string{"Ammar", "Ibrahim"}
+    fmt.Println(StringLooping(arr))
 
-	// Callable function
-	result :=Callable(Double);
-	fmt.Println(result);
+    fmt.Println("-------------")
 
-	// Use Struct
-	S1 := Person{
-		name :"ammar",
-		age:20,
-		salary: 12.290,
-		fn:func(s string){
-		fmt.Println(s);
-	}}
-	fmt.Println("Struct ",S1)
+    mp := map[string][]int{"a": {1, 2}}
+    DisplayMap(mp)
+
+    result := Callable(Double)
+    fmt.Println(result)
+
+    person := Person{
+        name:   "ammar",
+        age:    20,
+        salary: 12.290,
+        fn: func(s string) {
+            fmt.Println(s)
+        },
+    }
+    fmt.Println("Struct ", person)
+    person.fn("Hello from function field")
 }
