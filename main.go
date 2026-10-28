@@ -3,6 +3,16 @@ package main
 import "fmt"
 //import "strconv"
 
+
+// Function that take function 
+func Callable(fn func(int) int) int{
+	return fn(100);
+}
+
+func Double(number int) int{
+	return (number*2);
+}
+
 func sendData(ch chan<-string){
 
 	// Simulate api request that take time 
@@ -42,4 +52,8 @@ func main(){
 	mp := map[string][]int{"a":{1,2}};
 
 	DisplayMap(mp)
+
+	// Callable function
+	result :=Callable(Double);
+	fmt.Println(result);
 }
