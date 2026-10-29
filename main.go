@@ -13,6 +13,10 @@ type Person struct {
     fn     func(string)
 }
 
+type Product struct{
+    price float64
+}
+
 func HaveStruct(p Person) Person {
     p.age = 22
     return p
@@ -22,6 +26,10 @@ func HaveStruct(p Person) Person {
 func (p Person) EfficientFunction(p1 Person) Person {
     p1.name = "Ali"
     return p1
+}
+
+func (p Product) CalculatePrice(price float64) float64{
+    return price + (p.price* 0.4)
 }
 
 // Callable accepts a function and executes it.
@@ -85,4 +93,9 @@ func main() {
     }
     fmt.Println("Struct ", person)
     person.fn("Hello from function field")
+
+    price := Product{12.500}
+    final_product_price := Product.CalculatePrice(price,12.500);
+    fmt.Println("===================")
+    fmt.Println(final_product_price);
 }
