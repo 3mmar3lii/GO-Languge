@@ -5,6 +5,30 @@ import (
     "strings"
 )
 
+type Shape interface{
+    getArea() uint
+}
+
+type Triple struct {
+    a uint
+    b uint
+    c uint
+}
+type Example struct {
+    a uint
+    b uint
+}
+
+func (t Triple) getArea() uint{
+    return t.a + t.b + t.c 
+}
+
+func (e Example) getArea() uint{
+    return e.a + e.b 
+}
+
+
+
 // Person represents a simple sample model.
 type Person struct {
     name   string
@@ -98,4 +122,12 @@ func main() {
     final_product_price := Product.CalculatePrice(price,12.500);
     fmt.Println("===================")
     fmt.Println(final_product_price);
+
+
+    shapes := []Shape{Triple{a:1,b:2,c:3},Example{a:1,b: 2}}
+    finalArea :=uint(0);
+    for _,shape := range shapes{
+        finalArea += uint(shape.getArea())
+    }
+    fmt.Println(finalArea); // 6 - 3 
 }
