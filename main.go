@@ -5,6 +5,17 @@ import (
     "strings"
 )
 
+
+// Pointer to struct 
+type Book struct {
+    id int
+    title string
+}
+
+func (b *Book)ChangeTitle(t string) {
+    b.title=t
+}
+
 type PaymentProcessor interface{
     ProcessPayment(uint) string 
 }
@@ -168,4 +179,10 @@ func main() {
     // Generics
     VisaResult := process(Visa{"10"},10);
     fmt.Println(VisaResult)
+
+
+    // Pointers to structs
+    b := Book{id:1,title: "ammar"}
+    b.ChangeTitle("new")
+    fmt.Println(b);
 }
