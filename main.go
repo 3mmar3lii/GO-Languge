@@ -5,6 +5,38 @@ import (
     "strings"
 )
 
+type PaymentProcessor interface{
+    ProcessPayment(uint) string 
+}
+//func Process[T PaymentProcessor] (processType T,amount uint) string{
+//    return processType.ProcessPayment(amount)
+//}
+
+//func ProcessPayment[T Visa | Telda | Card ](m uint,typ T) T{
+//    return typ;
+//}
+
+func process(P PaymentProcessor,amount uint) string{
+    return P.ProcessPayment(amount)
+}
+
+type Visa struct {
+    VisaNumber string
+}
+
+func (v Visa) ProcessPayment(amount uint)string{
+    return "Visa Result"
+}
+
+type Telda struct {
+    TeldaNumber string
+}
+
+type Card struct {
+    CardNumber string
+}
+
+
 type Shape interface{
     getArea() uint
 }
@@ -130,4 +162,10 @@ func main() {
         finalArea += uint(shape.getArea())
     }
     fmt.Println(finalArea); // 6 - 3 
+    fmt.Println("===================")
+
+
+    // Generics
+    VisaResult := process(Visa{"10"},10);
+    fmt.Println(VisaResult)
 }
